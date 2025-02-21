@@ -2,154 +2,183 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Ensures proper scaling on mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Will You Be My Valentine?</title>
   <style>
-    /* Basic CSS Reset for consistent styling */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Previous styles remain */
+    /* Add these new styles */
 
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: "Arial", sans-serif;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-      overflow: hidden; /* so any runaway buttons stay hidden if they slip off screen */
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #fff;
-      text-align: center;
-      margin-bottom: 2rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
-
-    .button-container {
-      position: relative;
-      width: 90%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .val-btn {
-      border: none;
-      cursor: pointer;
-      border-radius: 50px;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      transition: transform 0.2s, background-color 0.3s;
-    }
-
-    /* Make the "Yes" button extra large and friendly */
-    .yes-btn {
-      background-color: #fff;
-      color: #ff69b4;
-      font-weight: bold;
-      transform: scale(1.3);
-    }
-    .yes-btn:hover {
-      background-color: #ffe6f3;
-    }
-
-    /* Make the "No" button small, suspiciously small... */
-    .no-btn {
-      background-color: #fff;
-      color: #ff69b4;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-    .no-btn:hover {
-      background-color: #ffe6f3;
-    }
-
-    .hidden-message {
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      color: #fff;
-      text-align: center;
-      max-width: 80%;
-      line-height: 1.5;
+    .valentine-rose {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
       opacity: 0;
-      transition: opacity 0.7s;
+      transition: all 1s ease-out;
     }
 
-    .hidden-message.visible {
+    .valentine-rose.show {
       opacity: 1;
+      bottom: 20px;
+    }
+
+    .rose-petal {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #FF007F;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      transform-origin: bottom center;
+      animation: petalBloom 1s ease-out forwards;
+    }
+
+    .rose-stem {
+      width: 8px;
+      height: 0;
+      background: #009900;
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: stemGrow 1s ease-out forwards;
+    }
+
+    .personal-images {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .personal-images img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    @keyframes petalBloom {
+      0% { transform: rotate(0deg) scale(0); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes stemGrow {
+      0% { height: 0; }
+      100% { height: 150px; }
+    }
+
+    /* Floating hearts background */
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      animation: float 8s infinite linear;
+      opacity: 0.5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
     }
   </style>
 </head>
 <body>
+  <!-- Add these new elements -->
+  <div class="hearts" id="hearts-container"></div>
+  <div class="valentine-rose" id="valentine-rose">
+    <div class="rose-stem"></div>
+    <div class="rose-petal" style="left: -15px;"></div>
+    <div class="rose-petal" style="left: 0px; transform: rotate(120deg)"></div>
+    <div class="rose-petal" style="left: 15px; transform: rotate(240deg)"></div>
+  </div>
+
   <h1>Will You Be My Valentine?</h1>
   <div class="button-container">
-    <!-- The giant "Yes" button -->
     <button class="val-btn yes-btn" onclick="revealMessage()">
       YES!!!
     </button>
-
-    <!-- The tiny "No" button that moves around when hovered or clicked -->
     <button class="val-btn no-btn" 
-            onclick="moveButton()" 
+            onclick="moveButton(); showAlert()" 
             onmouseover="moveButton()" 
             onfocus="moveButton()">
-      no :(
+      ani 
     </button>
   </div>
 
   <div class="hidden-message" id="secret-message">
-    Yay! I knew you’d say yes. You can’t escape your fate: you’re my Valentine now. 
+    <!-- Add personal images section -->
+    <div class="personal-images">
+      <img src="https://picsum.photos/100?random=1" alt="Our Memory 1">
+      <img src="https://picsum.photos/100?random=2" alt="Our Memory 2">
+      <img src="https://picsum.photos/100?random=3" alt="Our Memory 3">
+    </div>
+    
+    Love you bae mua mua mua 💖
     <br><br> 
     Happy Valentine’s Day!
   </div>
 
   <script>
-    const noBtn = document.querySelector('.no-btn');
-    const message = document.getElementById('secret-message');
+    // Previous JavaScript remains
+    // Add these new functions
 
-    // Reveal the hidden message
     function revealMessage() {
       message.classList.add('visible');
-    }
-
-    // Make the "No" button jump around the screen
-    function moveButton() {
-      // random positions within the screen
-      const bodyWidth = document.body.clientWidth;
-      const bodyHeight = document.body.clientHeight;
-
-      // The button's width and height
-      const btnWidth = noBtn.offsetWidth;
-      const btnHeight = noBtn.offsetHeight;
-
-      // Generate new random position
-      const newLeft = Math.floor(Math.random() * (bodyWidth - btnWidth)) + 'px';
-      const newTop = Math.floor(Math.random() * (bodyHeight - btnHeight)) + 'px';
-
-      noBtn.style.position = 'absolute';
-      noBtn.style.left = newLeft;
-      noBtn.style.top = newTop;
-
-      // Optional: Add a little rotation to be extra annoying
-      noBtn.style.transform = `rotate(${Math.random() * 360}deg)`;
-
-      // Optional twist: Add a playful alert if they keep trying 
-      // (uncomment if you want an alert to pop up occasionally)
-      /*
-      if (Math.random() < 0.2) {
-        alert("Nope, you can't say no!");
+      // Show the rose
+      const rose = document.getElementById('valentine-rose');
+      rose.classList.add('show');
+      
+      // Create floating hearts
+      const heartsContainer = document.getElementById('hearts-container');
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heartsContainer.appendChild(heart);
       }
-      */
     }
+
+    // Funny alerts for the "No" button
+    const funnyAlerts = [
+      "Nice try baboo! 😏",
+      "Aniya!! 💘",
+      "YES OR YES! ⭐",
+      "Error 404: 'No' not found",
+      "This button is just for decoration! 🌹",
+      "I'm shy, stop clicking! 🥺",
+      "Your cursor is stuck! 🌀"
+    ];
+    let alertIndex = 0;
+
+    function showAlert() {
+      alert(funnyAlerts[alertIndex % funnyAlerts.length]);
+      alertIndex++;
+    }
+
+    // Add floating hearts on load
+    window.addEventListener('load', () => {
+      const heartsContainer = document.getElementById('hearts-container');
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '💖';
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heartsContainer.appendChild(heart);
+      }
+    });
   </script>
 </body>
 </html>
