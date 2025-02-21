@@ -1,13 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will You Be My Valentine?</title>
   <style>
-    /* Previous styles remain */
-    /* Add these new styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: pink;
+      color: white;
+      overflow: hidden;
+    }
 
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 50px;
+      text-shadow: 3px 3px 10px red;
+    }
+
+    .button-container {
+      margin-top: 30px;
+    }
+
+    .val-btn {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .yes-btn {
+      background: red;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .no-btn {
+      background: black;
+      color: white;
+      border-radius: 10px;
+      position: absolute;
+    }
+
+    .hidden-message {
+      display: none;
+      font-size: 1.5rem;
+      margin-top: 30px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Floating hearts */
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    /* Rose Animation */
     .valentine-rose {
       position: fixed;
       bottom: -100px;
@@ -23,29 +97,29 @@
       bottom: 20px;
     }
 
+    .rose-stem {
+      width: 8px;
+      height: 150px;
+      background: green;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
     .rose-petal {
       position: absolute;
       width: 30px;
       height: 30px;
-      background: #FF007F;
+      background: red;
       clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
       transform-origin: bottom center;
-      animation: petalBloom 1s ease-out forwards;
     }
 
-    .rose-stem {
-      width: 8px;
-      height: 0;
-      background: #009900;
-      position: absolute;
-      bottom: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: stemGrow 1s ease-out forwards;
-    }
-
+    /* Images */
     .personal-images {
       display: flex;
+      justify-content: center;
       gap: 1rem;
       margin: 1rem 0;
     }
@@ -58,41 +132,11 @@
       object-fit: cover;
     }
 
-    @keyframes petalBloom {
-      0% { transform: rotate(0deg) scale(0); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-
-    @keyframes stemGrow {
-      0% { height: 0; }
-      100% { height: 150px; }
-    }
-
-    /* Floating hearts background */
-    .hearts {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-    }
-
-    .heart {
-      position: absolute;
-      animation: float 8s infinite linear;
-      opacity: 0.5;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-100vh) rotate(360deg); }
-    }
   </style>
 </head>
 <body>
-  <!-- Add these new elements -->
   <div class="hearts" id="hearts-container"></div>
+
   <div class="valentine-rose" id="valentine-rose">
     <div class="rose-stem"></div>
     <div class="rose-petal" style="left: -15px;"></div>
@@ -100,45 +144,30 @@
     <div class="rose-petal" style="left: 15px; transform: rotate(240deg)"></div>
   </div>
 
-  <h1>Will You Be My Valentine?</h1>
+  <h1>Will You Be My Valentine? 💖</h1>
   <div class="button-container">
-    <button class="val-btn yes-btn" onclick="revealMessage()">
-      YES!!!
-    </button>
-    <button class="val-btn no-btn" 
-            onclick="moveButton(); showAlert()" 
-            onmouseover="moveButton()" 
-            onfocus="moveButton()">
-      ani 
-    </button>
+    <button class="val-btn yes-btn" onclick="revealMessage()">YES!!!</button>
+    <button class="val-btn no-btn" id="no-btn" onclick="showAlert()" onmouseover="moveButton()" onfocus="moveButton()">ani</button>
   </div>
 
   <div class="hidden-message" id="secret-message">
-    <!-- Add personal images section -->
     <div class="personal-images">
-      <img src="https://picsum.photos/100?random=1" alt="Our Memory 1">
-      <img src="https://picsum.photos/100?random=2" alt="Our Memory 2">
-      <img src="https://picsum.photos/100?random=3" alt="Our Memory 3">
+      <img src="your-image1.jpg" alt="Memory 1">
+      <img src="your-image2.jpg" alt="Memory 2">
+      <img src="your-image3.jpg" alt="Memory 3">
     </div>
-    
-    Love you bae mua mua mua 💖
-    <br><br> 
+    Love you bae mua mua mua 💖💖💖<br>
     Happy Valentine’s Day!
   </div>
 
   <script>
-    // Previous JavaScript remains
-    // Add these new functions
-
     function revealMessage() {
-      message.classList.add('visible');
-      // Show the rose
-      const rose = document.getElementById('valentine-rose');
-      rose.classList.add('show');
-      
+      document.getElementById('secret-message').classList.add('visible');
+      document.getElementById('valentine-rose').classList.add('show');
+
       // Create floating hearts
       const heartsContainer = document.getElementById('hearts-container');
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 30; i++) {
         const heart = document.createElement('div');
         heart.innerHTML = '❤️';
         heart.className = 'heart';
@@ -149,15 +178,26 @@
       }
     }
 
-    // Funny alerts for the "No" button
+    // "No" button dodge effect
+    function moveButton() {
+      const button = document.getElementById('no-btn');
+      const maxX = window.innerWidth - button.clientWidth;
+      const maxY = window.innerHeight - button.clientHeight;
+
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+
+      button.style.left = newX + 'px';
+      button.style.top = newY + 'px';
+    }
+
+    // Funny alerts for "No" button
     const funnyAlerts = [
-      "Nice try baboo! 😏",
-      "Aniya!! 💘",
-      "YES OR YES! ⭐",
+      "Nice try! 😏",
+      "You can't resist! 💘",
       "Error 404: 'No' not found",
       "This button is just for decoration! 🌹",
-      "I'm shy, stop clicking! 🥺",
-      "Your cursor is stuck! 🌀"
+      "I'm shy, stop clicking! 🥺"
     ];
     let alertIndex = 0;
 
@@ -166,7 +206,7 @@
       alertIndex++;
     }
 
-    // Add floating hearts on load
+    // Floating hearts on load
     window.addEventListener('load', () => {
       const heartsContainer = document.getElementById('hearts-container');
       for (let i = 0; i < 20; i++) {
