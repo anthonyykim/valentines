@@ -130,6 +130,20 @@
       margin-top: 15px;
     }
 
+    /* Image placeholders */
+    .image-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      width: 200px;
+      height: 200px;
+      margin: 10px;
+      background: white;
+      border-radius: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -141,7 +155,7 @@
   </div>
 
   <h1>Will You Be My Valentine? 💖</h1>
-  <div class="button-container">
+  <div class="button-container" id="button-container">
     <button class="val-btn yes-btn" onclick="revealMessage()">YES!!!</button>
     <button class="val-btn no-btn" id="no-btn" onclick="showMessage()">ani</button>
   </div>
@@ -153,10 +167,30 @@
 
   <div class="message-box" id="message-box">Nice try! 😏</div>
 
+  <!-- Image placeholders -->
+  <div class="image-container" id="image-container">
+    <img id="img1" src="" alt="Image 1">
+    <img id="img2" src="" alt="Image 2">
+    <img id="img3" src="" alt="Image 3">
+  </div>
+
   <script>
     function revealMessage() {
       document.getElementById('secret-message').classList.add('visible');
       document.getElementById('valentine-tulip').classList.add('show');
+
+      // Hide the "ani" button and the funny messages
+      document.getElementById('no-btn').style.display = 'none';
+      document.getElementById('message-box').style.display = 'none';
+      document.getElementById('button-container').style.display = 'none';
+
+      // Show image placeholders
+      document.getElementById('image-container').style.display = 'block';
+
+      // Add images from GitHub repo (replace with actual GitHub links)
+      document.getElementById('img1').src = "https://raw.githubusercontent.com/your-repo/image1.jpg";
+      document.getElementById('img2').src = "https://raw.githubusercontent.com/your-repo/image2.jpg";
+      document.getElementById('img3').src = "https://raw.githubusercontent.com/your-repo/image3.jpg";
 
       // Create floating hearts
       const heartsContainer = document.getElementById('hearts-container');
