@@ -38,10 +38,11 @@
     }
 
     .no-btn {
-      background: black;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
       color: white;
       border-radius: 10px;
       position: absolute;
+      font-weight: bold;
     }
 
     .hidden-message {
@@ -116,6 +117,26 @@
       transform-origin: bottom center;
     }
 
+    .rose-flower {
+      position: absolute;
+      bottom: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+    }
+
+    /* Messages box */
+    .message-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      color: black;
+      font-weight: bold;
+      display: none;
+      margin-top: 15px;
+    }
+
     /* Images */
     .personal-images {
       display: flex;
@@ -138,16 +159,18 @@
   <div class="hearts" id="hearts-container"></div>
 
   <div class="valentine-rose" id="valentine-rose">
+    <div class="rose-flower">
+      <div class="rose-petal" style="left: -15px;"></div>
+      <div class="rose-petal" style="left: 0px; transform: rotate(120deg)"></div>
+      <div class="rose-petal" style="left: 15px; transform: rotate(240deg)"></div>
+    </div>
     <div class="rose-stem"></div>
-    <div class="rose-petal" style="left: -15px;"></div>
-    <div class="rose-petal" style="left: 0px; transform: rotate(120deg)"></div>
-    <div class="rose-petal" style="left: 15px; transform: rotate(240deg)"></div>
   </div>
 
   <h1>Will You Be My Valentine? 💖</h1>
   <div class="button-container">
     <button class="val-btn yes-btn" onclick="revealMessage()">YES!!!</button>
-    <button class="val-btn no-btn" id="no-btn" onclick="showAlert()" onmouseover="moveButton()" onfocus="moveButton()">ani</button>
+    <button class="val-btn no-btn" id="no-btn" onclick="showMessage()" onmouseover="moveButton()" onfocus="moveButton()">ani</button>
   </div>
 
   <div class="hidden-message" id="secret-message">
@@ -159,6 +182,8 @@
     Love you bae mua mua mua 💖💖💖<br>
     Happy Valentine’s Day!
   </div>
+
+  <div class="message-box" id="message-box">Nice try! 😏</div>
 
   <script>
     function revealMessage() {
@@ -191,19 +216,21 @@
       button.style.top = newY + 'px';
     }
 
-    // Funny alerts for "No" button
-    const funnyAlerts = [
+    // Funny messages for "No" button
+    const funnyMessages = [
       "Nice try! 😏",
       "You can't resist! 💘",
       "Error 404: 'No' not found",
       "This button is just for decoration! 🌹",
       "I'm shy, stop clicking! 🥺"
     ];
-    let alertIndex = 0;
+    let messageIndex = 0;
 
-    function showAlert() {
-      alert(funnyAlerts[alertIndex % funnyAlerts.length]);
-      alertIndex++;
+    function showMessage() {
+      const messageBox = document.getElementById('message-box');
+      messageBox.innerText = funnyMessages[messageIndex % funnyMessages.length];
+      messageBox.style.display = 'block';
+      messageIndex++;
     }
 
     // Floating hearts on load
